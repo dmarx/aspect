@@ -2,11 +2,24 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import NoteList from '../components/NoteList.astro';
+import VaultGraph from '../components/VaultGraph';
 
 const notes = await getCollection('notes');
 ---
+// web/src/pages/index.astro
 
 <Layout title="Digital Garden">
-  <h1 class="text-4xl font-bold mb-8">Digital Garden</h1>
-  <NoteList notes={notes} />
+  <div class="space-y-8">
+    <h1 class="text-4xl font-bold">Digital Garden</h1>
+    
+    <div class="border rounded-lg p-4 bg-white shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Knowledge Graph</h2>
+      <VaultGraph client:load />
+    </div>
+    
+    <div>
+      <h2 class="text-xl font-semibold mb-4">All Notes</h2>
+      <NoteList notes={notes} />
+    </div>
+  </div>
 </Layout>
