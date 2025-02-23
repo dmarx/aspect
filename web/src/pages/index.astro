@@ -6,7 +6,6 @@ import VaultGraph from '../components/VaultGraph.astro';
 
 const notes = await getCollection('notes');
 ---
-// web/src/pages/index.astro
 
 <Layout title="Digital Garden">
   <div class="space-y-8">
@@ -14,7 +13,7 @@ const notes = await getCollection('notes');
     
     <div class="border rounded-lg p-4 bg-white shadow-sm">
       <h2 class="text-xl font-semibold mb-4">Knowledge Graph</h2>
-      <VaultGraph client:load />
+      <VaultGraph />
     </div>
     
     <div>
