@@ -1,18 +1,32 @@
+---
+export const prerender = false;  // Ensures client-side only rendering
+---
+
 import React, { useEffect, useRef } from 'react';
-import Sigma from 'sigma';
-import Graph from 'graphology';
-import { circular } from 'graphology-layout';
-import FA2Layout from 'graphology-layout-forceatlas2';
-import graphData from '../data/vault-graph.json';
 
-
-const VaultGraph = () => {
+// Create a separate component for the dynamic import
+const DynamicGraph = () => {
   const containerRef = useRef(null);
   const sigmaRef = useRef(null);
 
   useEffect(() => {
-    const initGraph = () => {
+    // Dynamic imports to ensure code only runs in browser
+    const initGraph = async () => {
       try {
+        const [
+          { default: Sigma },
+          { default: Graph },
+          { circular },
+          { default: FA2Layout },
+          graphData
+        ] = await Promise.all([
+          import('sigma'),
+          import('graphology'),
+          import('graphology-layout'),
+          import('graphology-layout-forceatlas2'),
+          import('../data/vault-graph.json')
+        ]);
+
         // Create graph instance
         const graph = new Graph();
         
@@ -96,6 +110,11 @@ const VaultGraph = () => {
       className="w-full h-96 bg-gray-50 rounded-lg"
     />
   );
+};
+
+// Export a wrapper component that uses client:only
+const VaultGraph = () => {
+  return <DynamicGraph client:only="react" />;
 };
 
 export default VaultGraph;
