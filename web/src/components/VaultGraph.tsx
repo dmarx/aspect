@@ -5,6 +5,7 @@ import { circular } from 'graphology-layout';
 import FA2Layout from 'graphology-layout-forceatlas2';
 import graphData from '../data/vault-graph.json';
 
+
 const VaultGraph = () => {
   const containerRef = useRef(null);
   const sigmaRef = useRef(null);
