@@ -2,13 +2,13 @@
 
 cd web
 
-# Install Astro integrations
-npm install @astrojs/tailwind @astrojs/react
+# Remove existing node_modules and package-lock.json to ensure clean install
+rm -rf node_modules package-lock.json
 
-# Install Radix UI components
-npm install @radix-ui/react-slot @radix-ui/react-slider @radix-ui/react-switch @radix-ui/react-dialog
+# Install primary dependencies
+npm install
 
-# Install other UI dependencies
-npm install lucide-react class-variance-authority clsx tailwind-merge @tailwindcss/typography
+# Install UI dependencies
+npm install @radix-ui/react-slot @radix-ui/react-slider @radix-ui/react-switch @radix-ui/react-dialog lucide-react class-variance-authority clsx tailwind-merge @tailwindcss/typography --legacy-peer-deps
 
 cd ..
