@@ -7,6 +7,8 @@ import remarkWikiLink from 'remark-wiki-link';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://dmarx.github.io',
+  base: '/aspect',
   integrations: [react()],
   markdown: {
     remarkPlugins: [
