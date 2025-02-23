@@ -1,8 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import NoteList from '../components/NoteList.astro';
+
+const notes = await getCollection('notes');
 ---
 
 <Layout title="Digital Garden">
-  <h1 class="text-4xl font-bold mb-8">Welcome to my Digital Garden</h1>
-  <p class="text-lg text-gray-700">A space for interconnected thoughts and ideas.</p>
+  <h1 class="text-4xl font-bold mb-8">Digital Garden</h1>
+  <NoteList notes={notes} />
 </Layout>
