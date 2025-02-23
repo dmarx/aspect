@@ -1,0 +1,38 @@
+# .github/workflows/astro-setup.yml
+name: Initialize Astro Project
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.3.0'
+          cache: 'npm'
+
+      - name: Create Astro project
+        run: |
+          # Create web directory and initialize Astro with integrations
+          npm create astro@latest web -- --yes --skip-houston --template minimal \
+            --install --git --typescript strict \
+            --add react --add tailwind
+          
+          # Create required directories
+          mkdir -p web/src/{components,layouts,lib,pages,data}
+
+      - name: Configure GitHub Pages
+        run: |
+          gh api repos/${{ github.repository }}/pages -F source='{"branch":"gh-pages","path":"/"}' || true
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: initialize Astro project"
