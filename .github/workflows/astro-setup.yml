@@ -22,7 +22,7 @@ jobs:
         run: |
           # Create web directory and initialize Astro with integrations
           npm create astro@latest web -- --yes --skip-houston --template minimal \
-            --install --typescript strict \
+            --install --no-git --typescript strict \
             --add react --add tailwind
           
           # Create directories and add .gitkeep files
