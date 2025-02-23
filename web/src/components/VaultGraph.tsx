@@ -1,13 +1,9 @@
----
 import React, { useEffect, useRef } from 'react';
 import Sigma from 'sigma';
 import Graph from 'graphology';
 import { circular } from 'graphology-layout';
 import FA2Layout from 'graphology-layout-forceatlas2';
 import graphData from '../data/vault-graph.json';
-
----
-// web/src/components/VaultGraph.tsx
 
 const VaultGraph = () => {
   const containerRef = useRef(null);
