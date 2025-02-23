@@ -1,7 +1,7 @@
 ---
 title: Evergreen Notes
-created: 2024-02-23T12:30:00Z
-updated: 2024-02-23T12:30:00Z
+created: 2024-02-23 12:30:00
+updated: 2024-02-23 12:30:00
 tags: [PKM, writing]
 ---
 
