@@ -1,7 +1,7 @@
 ---
 title: Atomic Notes
-created: 2024-02-23T13:00:00Z
-updated: 2024-02-23T13:00:00Z
+created: 2024-02-23 13:00:00
+updated: 2024-02-23 13:00:00
 tags: [PKM, writing, productivity]
 ---
 
