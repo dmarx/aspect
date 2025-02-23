@@ -1,0 +1,32 @@
+# web/src/components/NoteView.astro
+---
+import type { CollectionEntry } from 'astro:content';
+import { Debug } from 'astro/components';
+
+interface Props {
+  entry: CollectionEntry<'notes'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<article class="prose prose-slate lg:prose-lg mx-auto">
+  {/* Debug metadata during development */}
+  {import.meta.env.DEV && <Debug {entry} />}
+  
+  <div class="mb-8">
+    <h1 class="mb-2">{entry.data.title || entry.slug}</h1>
+    {entry.data.tags && (
+      <div class="flex gap-2">
+        {entry.data.tags.map(tag => (
+          <a href={`/tags/${tag}`} class="text-sm bg-slate-100 px-2 py-1 rounded-full hover:bg-slate-200">
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <Content />
+</article>
