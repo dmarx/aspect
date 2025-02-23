@@ -15,6 +15,7 @@
     "@types/react-dom": "^19.0.4",
     "astro": "^5.3.0",
     "graphology": "^0.26.0",
+    "graphology-layout": "^0.6.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remark-wiki-link": "^2.0.1",
