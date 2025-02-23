@@ -1,15 +1,15 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-//import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
+import tailwind from "@astrojs/tailwind";
 import remarkWikiLink from 'remark-wiki-link';
+
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dmarx.github.io',
   base: '/aspect',
-  integrations: [react()],
+  integrations: [react(), tailwind()],
   markdown: {
     remarkPlugins: [
       [remarkWikiLink, {
