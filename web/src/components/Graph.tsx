@@ -2,10 +2,21 @@
 import React, { useEffect, useRef } from 'react';
 
 const Graph = () => {
-  const containerRef = useRef(null);
-  const sigmaRef = useRef(null);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sigmaRef = useRef<any>(null);
+  
   useEffect(() => {
+    // Ensure we have a container and it has dimensions
+    if (!containerRef.current) return;
+    
+    // Set explicit dimensions before sigma initialization
+    const container = containerRef.current;
+    const updateSize = () => {
+      container.style.width = '100%';
+      container.style.height = '400px'; // Explicit height
+    };
+    updateSize();
+
     // Dynamic imports to ensure code only runs in browser
     const initGraph = async () => {
       try {
@@ -49,14 +60,15 @@ const Graph = () => {
         circular.assign(graph);
         
         // Create Sigma instance
-        sigmaRef.current = new Sigma(graph, containerRef.current, {
+        sigmaRef.current = new Sigma(graph, container, {
           minCameraRatio: 0.2,
           maxCameraRatio: 2,
           renderEdgeLabels: false,
           defaultNodeColor: '#4B91E2',
           defaultEdgeColor: '#B4B4B4',
           labelSize: 12,
-          labelWeight: 'bold'
+          labelWeight: 'bold',
+          allowInvalidContainer: true // Added for safety
         });
 
         // Apply ForceAtlas2 layout
@@ -91,9 +103,12 @@ const Graph = () => {
       }
     };
 
+    // Handle resize
+    window.addEventListener('resize', updateSize);
     initGraph();
 
     return () => {
+      window.removeEventListener('resize', updateSize);
       if (sigmaRef.current) {
         sigmaRef.current.kill();
       }
@@ -103,7 +118,8 @@ const Graph = () => {
   return (
     <div 
       ref={containerRef} 
-      className="w-full h-96 bg-gray-50 rounded-lg"
+      style={{ width: '100%', height: '400px' }}
+      className="bg-gray-50 rounded-lg"
     />
   );
 };
