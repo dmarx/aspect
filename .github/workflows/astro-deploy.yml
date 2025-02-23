@@ -9,6 +9,7 @@ on:
     paths:
       - 'web/**'
       - '.github/workflows/astro-deploy.yml'
+      - 'requirements.txt'
   workflow_dispatch:
 
 permissions:
