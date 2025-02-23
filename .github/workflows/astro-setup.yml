@@ -22,11 +22,14 @@ jobs:
         run: |
           # Create web directory and initialize Astro with integrations
           npm create astro@latest web -- --yes --skip-houston --template minimal \
-            --install --git --typescript strict \
+            --install --no-git --typescript strict \
             --add react --add tailwind
           
-          # Create required directories
-          mkdir -p web/src/{components,layouts,lib,pages,data}
+          # Create directories and add .gitkeep files
+          for dir in components layouts lib pages data; do
+            mkdir -p web/src/$dir
+            touch web/src/$dir/.gitkeep
+          done
 
       - name: Configure GitHub Pages
         run: |

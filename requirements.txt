@@ -1,1 +1,1 @@
-# empty file needed here just to make the python setup github action shut up
+python-frontmatter
