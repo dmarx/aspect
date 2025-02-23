@@ -1,24 +1,28 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import NoteList from '../components/NoteList.astro';
-import VaultGraph from '../components/VaultGraph.astro';
-
-const notes = await getCollection('notes');
+// web/src/pages/index.astro
+import Layout from '../components/layout/Layout';
+import GraphView from '../components/graph/GraphView';
+import graphData from '../data/vault-graph.json';
 ---
 
-<Layout title="Digital Garden">
-  <div class="space-y-8">
-    <h1 class="text-4xl font-bold">Digital Garden</h1>
-    
-    <div class="border rounded-lg p-4 bg-white shadow-sm">
-      <h2 class="text-xl font-semibold mb-4">Knowledge Graph</h2>
-      <VaultGraph />
-    </div>
-    
-    <div>
-      <h2 class="text-xl font-semibold mb-4">All Notes</h2>
-      <NoteList notes={notes} />
-    </div>
-  </div>
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Digital Garden</title>
+  </head>
+  <body>
+    <Layout client:load>
+      <GraphView 
+        client:load 
+        data={graphData}
+        onNodeClick={(nodeId) => {
+          window.location.href = `/notes/${nodeId}`;
+        }} 
+      />
+    </Layout>
+  </body>
+</html>
