@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  notes: CollectionEntry<'notes'>[];
+}
+
+const { notes } = Astro.props;
+---
+
+<ul class="space-y-4">
+  {notes.map(note => (
+    <li>
+      <a 
+        href={`/notes/${note.slug}`} 
+        class="block p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+      >
+        <h2 class="text-xl font-semibold mb-2">
+          {note.data.title || note.slug}
+        </h2>
+        {note.data.tags && (
+          <div class="flex gap-2">
+            {note.data.tags.map(tag => (
+              <span class="text-sm text-slate-600">#{tag}</span>
+            ))}
+          </div>
+        )}
+      </a>
+    </li>
+  ))}
+</ul>
