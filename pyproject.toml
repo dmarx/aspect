@@ -15,6 +15,7 @@ max_file_size_kb = 500  # Skip files larger than 1MB
 
 # File patterns to exclude
 exclude_patterns = [
+    'web/package-lock.json'
 ]
 
 # File extensions to include
