@@ -1,4 +1,3 @@
-// web/src/components/layout/Layout.jsx
 import React, { useState } from 'react';
 import { Command } from "lucide-react";
 import { Input } from "@/components/ui/input";
