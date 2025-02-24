@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+/* web/src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for wiki links */
+.wiki-link {
+  @apply link link-primary;
+}
+
+/* Custom styles for the graph view */
+.sigma-mouse {
+  @apply cursor-pointer;
+}
+
+/* Prose styling for markdown content */
+.prose {
+  @apply max-w-none;
+}
+
+.prose a {
+  @apply link link-primary;
+}
+
+.prose pre {
+  @apply bg-base-200 p-4 rounded-lg;
+}
+
+.prose code {
+  @apply bg-base-200 px-1 py-0.5 rounded;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4;
+}
