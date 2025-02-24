@@ -138,3 +138,42 @@ const GraphView = ({ data, onNodeClick }) => {
               className="range range-primary"
             />
           </div>
+
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Color by Tags</span>
+              <input 
+                type="checkbox"
+                className="toggle toggle-primary"
+                checked={settings.colorByTags}
+                onChange={(e) => updateSettings('colorByTags', e.target.checked)}
+              />
+            </label>
+          </div>
+
+          <div className="divider"></div>
+
+          <div>
+            <h3 className="font-medium mb-2">Tag Colors</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.entries(tagColors).map(([tag, color]) => (
+                <div 
+                  key={tag}
+                  className="flex items-center gap-2 text-sm"
+                >
+                  <div 
+                    className="h-3 w-3 rounded-full" 
+                    style={{ backgroundColor: color }} 
+                  />
+                  {tag}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GraphView;
