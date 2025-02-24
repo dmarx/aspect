@@ -5,6 +5,7 @@ name: Deploy Astro Site
 
 on:
   push:
+    pull_request:
     branches: [ main, dev ]
     paths:
       - 'web/**'
