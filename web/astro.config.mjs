@@ -1,26 +1,26 @@
-// @ts-check
+// web/astro.config.mjs
 import { defineConfig } from 'astro/config';
-//import mdx from '@astrojs/mdx';
-import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
+import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
 import remarkWikiLink from 'remark-wiki-link';
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://dmarx.github.io',
-  base: '/aspect',
-  integrations: [react()],
+  integrations: [
+    react(), 
+    tailwind()
+  ],
   markdown: {
     remarkPlugins: [
-      [remarkWikiLink, {
-        // Match Obsidian's default format: [[page]] or [[page|alias]]
-        pageResolver: name => [name.replace(/ /g, '-').toLowerCase()],
-        hrefTemplate: permalink => `/aspect/notes/${permalink}`,
-        aliasDivider: '|'
+      [remarkWikiLink, { 
+        wikiLinkClassName: 'wiki-link',
+        hrefTemplate: (permalink) => `/notes/${permalink}`
       }]
     ],
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true
+    }
   },
-  vite: {
-    plugins: [tailwindcss()]
-  }
+  site: 'https://yourusername.github.io',
+  base: '/yourrepo'
 });
