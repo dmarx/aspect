@@ -1,0 +1,59 @@
+---
+File: web/src/content/notes/atomic-notes.md
+---
+---
+title: Atomic Notes
+created: 2024-02-23 13:00:00
+updated: 2024-02-23 13:00:00
+tags: [PKM, writing, productivity]
+---
+
+Atomic notes are self-contained units of knowledge that capture one main idea. They are a key concept in both [[evergreen-notes]] and [[digital-gardens|digital gardening]].
+
+Benefits of atomic notes:
+- Easier to link between ideas
+- More flexible organization
+- Clearer thinking
+
+
+
+---
+File: web/src/content/notes/digital-gardens.md
+---
+---
+title: Digital Gardens
+created: 2024-02-23 12:00:00
+updated: 2024-02-23 12:00:00
+tags: [productivity, PKM, tools]
+---
+
+Digital gardens are personal knowledge bases that grow over time. Unlike traditional blogs, they focus on [[evergreen-notes|evergreen content]] that evolves as your understanding deepens.
+
+Key aspects of digital gardening include:
+- Non-linear exploration
+- [[atomic-notes|Atomic note-taking]]
+- Embracing work in progress
+
+
+
+
+---
+File: web/src/content/notes/evergreen-notes.md
+---
+---
+title: Evergreen Notes
+created: 2024-02-23 12:30:00
+updated: 2024-02-23 12:30:00
+tags: [PKM, writing]
+---
+
+Evergreen notes are notes that retain their relevance and continue to evolve over time. They form the foundation of a good [[digital-gardens|digital garden]].
+
+Principles of evergreen notes:
+1. Atomic
+2. Concept-oriented
+3. Densely linked
+
+For more details on atomicity, see [[atomic-notes]].
+
+

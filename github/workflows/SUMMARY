@@ -1,0 +1,193 @@
+---
+File: .github/workflows/astro-deploy.yml
+---
+---
+# .github/workflows/astro-deploy.yml (updated)
+
+name: Deploy Astro Site
+
+on:
+  pull_request:
+  push:
+    branches: [ main, dev ]
+    paths:
+      - 'web/**'
+      - '.github/workflows/astro-deploy.yml'
+      - 'requirements.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.3.0'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install Python dependencies
+        run: pip install python-frontmatter
+
+      - name: Install Node dependencies
+        working-directory: web
+        run: npm install --legacy-peer-deps
+
+      - name: Build graph data
+        working-directory: web
+        run: python scripts/build_graph.py
+
+      - name: Build site
+        working-directory: web
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
+
+---
+File: .github/workflows/astro-setup.yml
+---
+# .github/workflows/astro-setup.yml
+name: Initialize Astro Project
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.3.0'
+
+      - name: Create Astro project
+        run: |
+          # Create web directory and initialize Astro with integrations
+          npm create astro@latest web -- --yes --skip-houston --template minimal \
+            --install --no-git --typescript strict \
+            --add react --add tailwind
+          
+          # Create directories and add .gitkeep files
+          for dir in components layouts lib pages data; do
+            mkdir -p web/src/$dir
+            touch web/src/$dir/.gitkeep
+          done
+
+      - name: Configure GitHub Pages
+        run: |
+          gh api repos/${{ github.repository }}/pages -F source='{"branch":"gh-pages","path":"/"}' || true
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: initialize Astro project"
+
+
+
+---
+File: .github/workflows/llamero-summarize.yaml
+---
+name: Llamero Summarization
+
+on:
+ push:
+    branches:
+      - main
+ workflow_dispatch:
+
+jobs:
+  generate-summaries:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install project
+      run: pip install llamero
+
+    - name: Generate summaries
+      run: llamero summarize all
+
+
+
+---
+File: .github/workflows/ops-misc.yml
+---
+# .github/workflows/ops-misc.yml
+# General purpose utility operator for one-off operations
+# Executes misc.sh and clears it after successful run
+
+name: Miscellaneous Operations
+
+on:
+  push:
+    paths:
+      - 'ops/misc.sh'
+      - '.github/workflows/ops-misc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-misc:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Execute and clear misc script
+        run: |
+          cat ops/misc.sh
+          . ops/misc.sh
+          echo '#!/bin/bash' > ops/misc.sh
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: executed miscellaneous operation"
+
+
