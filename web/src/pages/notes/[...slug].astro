@@ -1,19 +1,30 @@
 ---
+// web/src/pages/notes/[...slug].astro
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import NoteView from '../../components/NoteView.astro';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes');
-  return notes.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
+  return notes.map(note => ({
+    params: { slug: note.slug },
+    props: { note },
   }));
 }
 
-const { entry } = Astro.props;
+const { note } = Astro.props;
+const { Content } = await note.render();
 ---
 
-<Layout title={entry.data.title || entry.slug}>
-  <NoteView entry={entry} />
+<Layout title={note.data.title}>
+  <article class="prose prose-slate dark:prose-invert max-w-none p-6">
+    <h1>{note.data.title}</h1>
+    <div class="flex gap-2 mb-4">
+      {note.data.tags?.map(tag => (
+        <span class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded text-sm">
+          {tag}
+        </span>
+      ))}
+    </div>
+    <Content />
+  </article>
 </Layout>

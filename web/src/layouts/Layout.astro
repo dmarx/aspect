@@ -1,21 +1,29 @@
 ---
+// web/src/layouts/Layout.astro
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+
 interface Props {
-  title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-  </head>
-  <body class="min-h-screen bg-white">
-    <main class="container mx-auto px-4 py-8">
-      <slot />
-    </main>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Digital Garden" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+	<body>
+		<main>
+			<slot />
+		</main>
+	</body>
 </html>

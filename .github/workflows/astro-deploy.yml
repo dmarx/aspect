@@ -10,6 +10,8 @@ on:
       - 'web/**'
       - '.github/workflows/astro-deploy.yml'
       - 'requirements.txt'
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
