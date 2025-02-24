@@ -2,16 +2,16 @@
 
 cd web
 
-# Initialize shadcn-ui
-npx shadcn-ui@latest init
+# Initialize shadcn-ui with CLI add
+npx --yes create-shadcn-astro@latest --yes
 
 # Add required components
-npx shadcn-ui@latest add button
-npx shadcn-ui@latest add input
-npx shadcn-ui@latest add sheet
-npx shadcn-ui@latest add slider
-npx shadcn-ui@latest add switch
-npx shadcn-ui@latest add card
-npx shadcn-ui@latest add badge
+npx --yes shadcn-ui@latest add button --yes
+npx --yes shadcn-ui@latest add input --yes
+npx --yes shadcn-ui@latest add sheet --yes
+npx --yes shadcn-ui@latest add slider --yes
+npx --yes shadcn-ui@latest add switch --yes
+npx --yes shadcn-ui@latest add card --yes
+npx --yes shadcn-ui@latest add badge --yes
 
 cd ..
